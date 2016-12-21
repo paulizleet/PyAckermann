@@ -2,13 +2,11 @@
 
 import sys
 
-import subprocess
-
 from subprocess import Popen
 
 from subprocess import PIPE
 
-
+from datetime import datetime
 
 #Change these values to run it on your own machine!
 
@@ -25,7 +23,7 @@ limit = sys.getrecursionlimit()
 
 
 def main(argv):
-
+	
 	if len(argv) != 1:
 		
 		#Continue recursing on ack where we left off
@@ -38,18 +36,21 @@ def main(argv):
 		return
 		
 	print("goin")
+	
 	for m in iter(range(0,10)):
 		for n in iter(range(0, 10)):
+			now = datetime.now()
 			a=ack(m,n,1)
+			#print the amount of time it took to calculate this one
+			print(datetime.now() - now)
+			print("m: " + str(m) + "\tn: " + str(n) + "\ta: " + str(a) + "\n")
 			
-			print("m: " + str(m) + "\tn: " + str(n) + "\ta: " + str(a))
-
 
 def ack(m, n, d):
 
 
 	#Python needs some stack frames to actually pull off recursing it past the limit like I want it to.
-	#I know that it's less than fifty, so when 
+	#I know that it's less than fifty, so when it reaches the limit-minus-fifty, branch to the next one
 	
 	if d < limit - 50:
 	
